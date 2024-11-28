@@ -13,7 +13,7 @@ public class CheckoutController : ControllerBase
 
 	public CheckoutController(CheckoutService checkoutService)
 	{
-		_checkoutService = new CheckoutService();
+		_checkoutService = checkoutService;
 	}
 
 	[HttpPost("process")]
