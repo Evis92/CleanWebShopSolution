@@ -13,7 +13,6 @@ public class CheckoutService
 
 	public async Task ProcessPayment(decimal amount, string paymentMethod)
 	{
-		// Välj strategi baserat på användarens val
 		IPaymentStrategy paymentStrategy = paymentMethod switch
 		{
 			"Swish" => new SwishPayment(),
@@ -21,10 +20,8 @@ public class CheckoutService
 			_ => throw new ArgumentException("Invalid payment method")
 		};
 
-		// Sätt strategin i PaymentContext
 		_paymentContext.SetPaymentStrategy(paymentStrategy);
 
-		// Kör betalningen
 		bool success = await _paymentContext.ExecutePayment(amount);
 
 		Console.WriteLine(success
