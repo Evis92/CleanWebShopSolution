@@ -31,15 +31,21 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
-builder.Services.AddSingleton<ProductSubject>();
+//builder.Services.AddSingleton<ProductSubject>();
+//builder.Services.AddTransient<INotificationObserver, EmailNotification>();
+
+builder.Services.AddSingleton<ProductSubject>(sp =>
+{
+	var productSubject = new ProductSubject();
+	productSubject.Attach(new EmailNotification());
+	productSubject.Attach(new SmsNotification());
+	return productSubject;
+});
 
 builder.Services.AddTransient<CheckoutService>();
 builder.Services.AddTransient<CreditCardPayment>();
 builder.Services.AddTransient<SwishPayment>();
 
-
-
-builder.Services.AddTransient<INotificationObserver, EmailNotification>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -74,18 +74,14 @@ namespace WebShop.Controllers
 		[HttpPost]
 		public async Task<ActionResult> AddProduct(Product product)
 		{
-			// Lägger till produkten via repository
+			
 			if (product == null)
 				return BadRequest("Product is null");
 			try
 			{
 				await _productService.AddProduct(product);
-				// Sparar förändringar
+				
 				return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
-
-
-				// Notifierar observatörer om att en ny produkt har lagts till
-
 			}
 			catch (Exception e)
 			{

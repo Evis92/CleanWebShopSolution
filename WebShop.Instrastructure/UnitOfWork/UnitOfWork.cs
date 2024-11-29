@@ -25,9 +25,6 @@ namespace WebShop.Instrastructure.UnitOfWork
 			Orders = ordersRepository;
 			Customer = customerRepository;
 			_productSubject = productSubject ?? new ProductSubject();
-
-			_productSubject.Attach(new EmailNotification());
-			_productSubject.Attach(new SmsNotification());
 		}
 
 
